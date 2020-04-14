@@ -1,5 +1,13 @@
 <template>
-  <div class="room col-6" droppable="true" @drop.capture="addItem" @dragover.prevent>
+  <div
+    ref="droppable"
+    class="room col-6"
+    droppable="true"
+    @dragover.prevent
+    @drop.capture="addItem"
+    @dragenter="dragEnter"
+    @dragleave="dragLeave"
+  >
     {{room.name}}
     <div class="room-items mt-3">
       <item v-for="item in items" :itemData="item" :key="item.id" :roomId="room.id" />
@@ -33,6 +41,12 @@ export default {
       if (from == this.room.id) { return }
 
       this.$store.dispatch("moveItem", { item, to: this.room.id })
+    },
+    dragEnter() {
+      this.$refs.droppable.classList.add("droppable")
+    },
+    dragLeave() {
+      this.$refs.droppable.classList.remove("droppable")
     }
   },
   components: {
@@ -46,9 +60,14 @@ export default {
 .room {
   height: 30vh;
   background-color: white;
-  border: 1px;
-  border-style: solid;
-  border-color: black;
+  border: 1px solid black;
+  transition: all 0.2s linear;
+}
+
+.droppable {
+  border-style: dashed;
+  border-color: grey;
+  background: greenyellow;
 }
 
 .room-items {

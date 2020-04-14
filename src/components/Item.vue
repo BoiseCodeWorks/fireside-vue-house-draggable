@@ -4,6 +4,7 @@
     draggable="true"
     @dragstart.capture="moving"
     @dragend="dragEnd"
+    ref="draggable"
   >
     <img :src="itemData.url" :alt="itemData.name" :title="itemData.name" />
     <small>
@@ -28,9 +29,11 @@ export default {
       let from = this.roomId;
       event.dataTransfer.setData("data", JSON.stringify(this.itemData));
       event.dataTransfer.setData("from", from);
-      console.log("moving");
+      this.$refs.draggable.classList.add("dragging")
+      event.dataTransfer.setDragImage(this.$refs.draggable, 0, 0)
     },
     dragEnd() {
+      this.$refs.draggable.classList.remove("dragging")
       console.log("the item is no longer being dragged");
     },
     dragging() {
@@ -45,6 +48,11 @@ export default {
 <style scoped>
 .item {
   cursor: pointer;
+  transition: all 0.2s linear;
+}
+.dragging {
+  transform: scale(0.8) rotateY(20deg);
+  opacity: 0.3;
 }
 img {
   height: 35px;
