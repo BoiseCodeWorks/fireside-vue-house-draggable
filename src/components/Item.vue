@@ -1,6 +1,14 @@
 <template>
-  <div class="item" draggable="true" v-on:dragstart.capture="moving" v-on:dragend="dropped">
-    <img :src="itemData.url" alt="oops" />
+  <div
+    class="item d-flex flex-column align-items-center"
+    draggable="true"
+    @dragstart.capture="moving"
+    @dragend="dragEnd"
+  >
+    <img :src="itemData.url" :alt="itemData.name" :title="itemData.name" />
+    <small>
+      <sub class="mt-2 text-uppercase">{{itemData.name}}</sub>
+    </small>
   </div>
 </template>
 
@@ -17,16 +25,16 @@ export default {
   computed: {},
   methods: {
     moving(event) {
-      let from = "truck";
-      if (this.roomId) {
-        from = this.roomId;
-      }
+      let from = this.roomId;
       event.dataTransfer.setData("data", JSON.stringify(this.itemData));
       event.dataTransfer.setData("from", from);
       console.log("moving");
     },
-    dropped() {
-      console.log("the item has dropped");
+    dragEnd() {
+      console.log("the item is no longer being dragged");
+    },
+    dragging() {
+      console.log("we are dragging the item", this.itemData)
     }
   },
   components: {}
@@ -35,12 +43,13 @@ export default {
 
 
 <style scoped>
+.item {
+  cursor: pointer;
+}
 img {
-  height: 5vh;
-  width: 4vw;
+  height: 35px;
+  width: 35px;
+  object-fit: contain;
   background-color: white;
-  border: 1px;
-  border-style: solid;
-  border-color: black;
 }
 </style>

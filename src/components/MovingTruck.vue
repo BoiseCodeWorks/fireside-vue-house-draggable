@@ -1,15 +1,15 @@
 <template>
-  <div class="movingTruck col-10 offset-1 mb-4">
+  <div class="moving-truck col-10 offset-1 mb-4">
     <p class="mb-2">Moving Truck</p>
-    <p class="truckItems">
-      <items v-for="item in items" :key="item.id" :itemData="item" />
+    <p class="truck-items">
+      <item v-for="item in items" :key="item.id" :itemData="item" />
     </p>
   </div>
 </template>
 
 
 <script>
-import Items from "../components/Item";
+import Item from "../components/Item";
 export default {
   name: "movingTruck",
   data() {
@@ -17,19 +17,19 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.state.items;
+      return this.$store.state.items.filter(i => i.roomId == 'truck');
     }
   },
   methods: {},
   components: {
-    Items
+    Item
   }
 };
 </script>
 
 
 <style scoped>
-.movingTruck {
+.moving-truck {
   height: 20vh;
   border: 2px;
   border-color: black;
@@ -37,7 +37,7 @@ export default {
   background-color: white;
 }
 
-.truckItems {
+.truck-items {
   display: flex;
   justify-content: space-evenly;
 }
