@@ -1,8 +1,8 @@
 <template>
   <div class="room col-6" droppable="true" @drop.capture="addItem" @dragover.prevent>
-    {{roomData.name}}
+    {{room.name}}
     <div class="room-items mt-3">
-      <item v-for="item in items" :itemData="item" :key="item.id" :roomId="roomData.id" />
+      <item v-for="item in items" :itemData="item" :key="item.id" :roomId="room.id" />
     </div>
   </div>
 </template>
@@ -12,13 +12,15 @@
 import Item from "../components/Item";
 export default {
   name: "room",
-  props: ["roomData"],
+  props: {
+    room: { type: Object, required: true }
+  },
   data() {
     return {};
   },
   computed: {
     items() {
-      return this.$store.getters.items[this.roomData.id] || []
+      return this.$store.getters.items[this.room.id] || []
     }
   },
   methods: {
@@ -28,9 +30,9 @@ export default {
       // get the starting location off of the event storage
       let from = event.dataTransfer.getData("from");
       // don't allow drops in the same room
-      if (from == this.roomData.id) { return }
+      if (from == this.room.id) { return }
 
-      this.$store.dispatch("moveItem", { item, to: this.roomData.id })
+      this.$store.dispatch("moveItem", { item, to: this.room.id })
     }
   },
   components: {

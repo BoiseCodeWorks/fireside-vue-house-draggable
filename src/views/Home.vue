@@ -4,7 +4,7 @@
       <movingTruck />
     </div>
     <div class="row rowTop">
-      <rooms v-for="room in rooms" :roomData="room" :key="room._id" />
+      <room v-for="room in rooms" :room="room" :key="room.id" />
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 
 <script>
 import MovingTruck from "../components/MovingTruck";
-import Rooms from "../components/Room";
+import Room from "../components/Room";
 export default {
   name: "Home",
   data() {
@@ -25,7 +25,7 @@ export default {
   },
   methods: {},
   components: {
-    Rooms,
+    Room,
     MovingTruck
   }
 };
