@@ -4,6 +4,7 @@
     draggable="true"
     @dragstart.capture="moving"
     @dragend="dragEnd"
+    @dragover.prevent
     ref="draggable"
   >
     <img :src="itemData.url" :alt="itemData.name" :title="itemData.name" />
