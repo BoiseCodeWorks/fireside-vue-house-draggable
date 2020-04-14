@@ -51,7 +51,7 @@ export default {
   transition: all 0.2s linear;
 }
 .dragging {
-  transform: scale(0.8) rotateY(20deg);
+  transform: scale(0.8) rotateZ(30deg);
   opacity: 0.3;
 }
 img {
