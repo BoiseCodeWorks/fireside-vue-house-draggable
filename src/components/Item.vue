@@ -34,8 +34,12 @@ export default {
       event.dataTransfer.setDragImage(this.$refs.draggable, 0, 0)
     },
     dragEnd() {
-      this.$refs.draggable.classList.remove("dragging")
-      console.log("the item is no longer being dragged");
+      // reverts style when dropping into the same zone
+      try {
+        this.$refs.draggable.classList.remove("dragging")
+      } catch (e) {
+        
+      }
     },
     dragging() {
       console.log("we are dragging the item", this.itemData)
@@ -50,15 +54,16 @@ export default {
 .item {
   cursor: pointer;
   transition: all 0.2s linear;
+  padding: 1rem;
 }
 .dragging {
   transform: scale(0.8) rotateZ(30deg);
   opacity: 0.3;
+  outline: 1px dashed rgba(128, 128, 128, 0.507);
 }
 img {
   height: 35px;
   width: 35px;
   object-fit: contain;
-  background-color: white;
 }
 </style>
