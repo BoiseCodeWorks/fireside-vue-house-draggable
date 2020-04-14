@@ -41,6 +41,7 @@ export default {
       if (from == this.room.id) { return }
 
       this.$store.dispatch("moveItem", { item, to: this.room.id })
+      this.$refs.droppable.classList.remove("droppable")
     },
     dragEnter() {
       this.$refs.droppable.classList.add("droppable")
