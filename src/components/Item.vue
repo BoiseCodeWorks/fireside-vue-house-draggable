@@ -21,7 +21,7 @@ export default {
   props: ["itemData", "roomId"],
   data() {
     return {
-      isMoving: true
+      isMoving: true,
     };
   },
   computed: {},
@@ -31,14 +31,14 @@ export default {
       event.dataTransfer.setData("data", JSON.stringify(this.itemData));
       event.dataTransfer.setData("from", from);
       this.$refs.draggable.classList.add("dragging")
-      event.dataTransfer.setDragImage(this.$refs.draggable, 0, 0)
+      event.dataTransfer.setDragImage(this.$refs.draggable, 20, 20)
     },
     dragEnd() {
       // reverts style when dropping into the same zone
       try {
         this.$refs.draggable.classList.remove("dragging")
       } catch (e) {
-        
+
       }
     },
     dragging() {
