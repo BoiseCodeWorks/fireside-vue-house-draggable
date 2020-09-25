@@ -43,6 +43,9 @@ export default {
     },
     dragging() {
       console.log("we are dragging the item", this.itemData)
+    },
+    doThing(){
+      console.log("Dragging")
     }
   },
   components: {}
